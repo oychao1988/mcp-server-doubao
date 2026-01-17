@@ -1,6 +1,6 @@
 {
   "name": "@tonychaos/mcp-server-doubao",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "MCP server for Doubao (豆包) AI models - Comprehensive Image and Video generation with 4 image models and 2 video models",
   "type": "module",
   "main": "dist/index.js",
@@ -36,15 +36,16 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tonychaos/mcp-server-doubao.git"
+    "url": "https://github.com/oychao1988/mcp-server-doubao.git"
   },
   "bugs": {
-    "url": "https://github.com/tonychaos/mcp-server-doubao/issues"
+    "url": "https://github.com/oychao1988/mcp-server-doubao/issues"
   },
-  "homepage": "https://github.com/tonychaos/mcp-server-doubao#readme",
+  "homepage": "https://github.com/oychao1988/mcp-server-doubao#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
-    "zod": "^4.0.0"
+    "zod": "^4.0.0",
+    "zod-to-json-schema": "^3.25.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

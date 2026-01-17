@@ -26,6 +26,8 @@
  */
 
 import { ImageAPI } from "../api/index.js";
+import { promises as fs } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { z } from "zod";
 
 /**
@@ -141,6 +143,48 @@ export const generateImageTool = {
           error: img.error,
         })),
         usage: response.usage,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+  },
+};
+
+export const downloadImageTool = {
+  name: "download_image",
+  description:
+    "Download an image by URL and save to a specified file path. The request will include Authorization header (Bearer ARK_API_KEY).",
+  inputSchema: z.object({
+    url: z
+      .string()
+      .describe("Image URL to download (typically the url returned by generate_image)"),
+    filePath: z
+      .string()
+      .describe("Local file path to save the image (e.g., /path/to/image.png or ./downloads/image.jpg)"),
+  }),
+  handler: async (input: { url: string; filePath: string }) => {
+    const api = new ImageAPI();
+
+    try {
+      const result = await api.downloadImage(input.url);
+
+      const absolutePath = resolve(input.filePath);
+      const dir = dirname(absolutePath);
+
+      await fs.mkdir(dir, { recursive: true });
+
+      const buffer = Buffer.from(result.base64, "base64");
+      await fs.writeFile(absolutePath, buffer);
+
+      return {
+        success: true,
+        url: input.url,
+        filePath: absolutePath,
+        contentType: result.contentType,
+        bytes: result.bytes,
       };
     } catch (error: any) {
       return {

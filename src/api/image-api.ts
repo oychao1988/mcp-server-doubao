@@ -3,6 +3,7 @@
  */
 
 import { APIClient } from "./client.js";
+import { Buffer } from "node:buffer";
 import { IMAGE_MODELS } from "../types/index.js";
 import type {
   ImageGenerationRequest,
@@ -19,6 +20,21 @@ export const DEFAULT_IMAGE_MODEL = IMAGE_MODELS.SEEDREAM_4_5;
  * 图片API类
  */
 export class ImageAPI extends APIClient {
+  async downloadImage(url: string): Promise<{
+    base64: string;
+    contentType: string | null;
+    bytes: number;
+  }> {
+    const { buffer, contentType } = await this.fetchBinary(url);
+    const base64 = Buffer.from(buffer).toString("base64");
+
+    return {
+      base64,
+      contentType,
+      bytes: buffer.byteLength,
+    };
+  }
+
   /**
    * 生成图片（文本生成图片）
    */

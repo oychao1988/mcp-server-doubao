@@ -16,6 +16,39 @@ export class APIClient {
     this.config = getConfig();
   }
 
+  protected async fetchBinary(
+    endpointOrUrl: string,
+    init: RequestInit = {}
+  ): Promise<{ buffer: ArrayBuffer; contentType: string | null }> {
+    const url = endpointOrUrl.startsWith("http")
+      ? endpointOrUrl
+      : `${this.config.baseURL}${endpointOrUrl}`;
+
+    try {
+      const headers = new Headers(init.headers);
+      headers.set("Authorization", `Bearer ${this.config.apiKey}`);
+
+      const response = await fetch(url, {
+        ...init,
+        headers,
+      });
+
+      if (!response.ok) {
+        await handleAPIResponse(response);
+      }
+
+      return {
+        buffer: await response.arrayBuffer(),
+        contentType: response.headers.get("content-type"),
+      };
+    } catch (error) {
+      if (error instanceof Error && (error as any).code) {
+        throw error;
+      }
+      handleNetworkError(error);
+    }
+  }
+
   /**
    * 发送POST请求
    */

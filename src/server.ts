@@ -8,9 +8,11 @@ import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
+import { zodToJsonSchema } from "zod-to-json-schema";
 import {
   generateImageTool,
   imageToImageTool,
+  downloadImageTool,
   generateVideoTool,
   queryVideoTaskTool,
 } from "./tools/index.js";
@@ -38,22 +40,27 @@ export function createMCPServer(): Server {
         {
           name: generateImageTool.name,
           description: generateImageTool.description,
-          inputSchema: generateImageTool.inputSchema,
+          inputSchema: zodToJsonSchema(generateImageTool.inputSchema as any),
         },
         {
           name: imageToImageTool.name,
           description: imageToImageTool.description,
-          inputSchema: imageToImageTool.inputSchema,
+          inputSchema: zodToJsonSchema(imageToImageTool.inputSchema as any),
+        },
+        {
+          name: downloadImageTool.name,
+          description: downloadImageTool.description,
+          inputSchema: zodToJsonSchema(downloadImageTool.inputSchema as any),
         },
         {
           name: generateVideoTool.name,
           description: generateVideoTool.description,
-          inputSchema: generateVideoTool.inputSchema,
+          inputSchema: zodToJsonSchema(generateVideoTool.inputSchema as any),
         },
         {
           name: queryVideoTaskTool.name,
           description: queryVideoTaskTool.description,
-          inputSchema: queryVideoTaskTool.inputSchema,
+          inputSchema: zodToJsonSchema(queryVideoTaskTool.inputSchema as any),
         },
       ],
     };
@@ -76,6 +83,10 @@ export function createMCPServer(): Server {
 
       case "image_to_image":
         result = await imageToImageTool.handler(args as any);
+        break;
+
+      case "download_image":
+        result = await downloadImageTool.handler(args as any);
         break;
 
       case "generate_video":

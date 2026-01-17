@@ -27,6 +27,7 @@
 - ✅ **4K超高清** - 最高 4096x4096 分辨率
 - ✅ **自定义尺寸** - 支持自定义像素值，如 2560x1440 (16:9)
 - ✅ **Base64返回** - 支持返回 Base64 编码的图片数据
+- ✅ **图片下载** - 支持下载图片到本地指定路径
 - ✅ **提示词优化** - 自动优化提示词以提升生成质量
 - ✅ **水印控制** - 可选择是否添加水印
 - ✅ **流式输出** - 实时返回生成进度(4.5/4.0)
@@ -151,6 +152,12 @@ npx @tonychaos/mcp-server-doubao
 
 ```
 请生成一张无水印的图片：一只金毛犬在海滩上奔跑
+```
+
+#### 图片下载
+
+```
+请下载这张图片并保存到 ./downloads/cat.jpg: https://example.com/cat.jpg
 ```
 
 ### 视频生成示例
@@ -317,6 +324,17 @@ mcp-server-doubao/
 - `size`: 图片尺寸
 - `sequential_image_generation`: 组图模式
 
+#### download_image (图片下载)
+
+**主要参数**:
+- `url` (必选): 图片 URL（通常由 generate_image 返回）
+- `filePath` (必选): 本地保存路径（如 /path/to/image.png 或 ./downloads/image.jpg）
+
+**功能说明**:
+- 自动携带认证头下载图片
+- 自动创建目标目录（如果不存在）
+- 返回保存的绝对路径、文件大小和内容类型
+
 ### 视频生成工具
 
 #### generate_video (创建视频任务)
@@ -336,6 +354,17 @@ mcp-server-doubao/
 - `task_id` (必选): 任务 ID
 
 ## 📝 更新日志
+
+### v1.2.0 (2026-01-17)
+
+- ✨ 新增图片下载功能
+  - 支持下载图片到本地指定路径
+  - 自动携带认证头
+  - 自动创建目标目录
+  - 返回保存路径、文件大小和内容类型
+- 🐛 修复 MCP 工具参数描述无法显示的问题
+  - 将 Zod schema 转换为 JSON Schema
+  - 确保 MCP 客户端正确解析工具参数信息
 
 ### v1.1.0 (2025-01-11)
 
@@ -377,7 +406,7 @@ mcp-server-doubao/
 
 ## 💬 支持
 
-如有问题或建议，请提交 [Issue](https://github.com/tonychaos/mcp-server-doubao/issues)。
+如有问题或建议，请提交 [Issue](https://github.com/oychao1988/mcp-server-doubao/issues)。
 
 ## 🙏 致谢
 
