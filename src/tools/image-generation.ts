@@ -73,12 +73,14 @@ export const generateImageTool = {
     prompt: z.string().describe("📝 Text prompt for image generation (Chinese or English, recommended under 300 characters)"),
 
     // ========== 模型选择 ==========
-    model: z.enum([
-      "doubao-seedream-4-5-251128",
-      "doubao-seedream-4-0-250428",
-      "doubao-seedream-3-0-t2i",
-      "doubao-seededit-3-0-i2i",
-    ]).optional().describe("🤖 Model ID (default: doubao-seedream-4-5-251128, most capable)"),
+    model: z.string().optional().describe(`🤖 Model ID (default: doubao-seedream-4-5-251128)
+Known models:
+• doubao-seedream-5-0-260128 - Latest (2026-01), web search, deep reasoning
+• doubao-seedream-4-5-251128 - 4K, multi-image fusion, streaming
+• doubao-seedream-4-0-250428 - 4K ultra HD, strong consistency
+• doubao-seedream-3-0-t2i - Text-to-image, supports seed/guidance_scale
+• doubao-seededit-3-0-i2i - Image-to-image, supports adaptive size
+You can use any valid Doubao model ID, including future releases.`),
 
     // ========== 尺寸参数 ==========
     size: z.string().optional().describe(`📐 Image size:
@@ -233,11 +235,13 @@ export const imageToImageTool = {
     prompt: z.string().describe("📝 Text prompt for image transformation/editing"),
 
     // ========== 模型选择 ==========
-    model: z.enum([
-      "doubao-seedream-4-5-251128",
-      "doubao-seedream-4-0-250428",
-      "doubao-seededit-3-0-i2i",
-    ]).optional().describe("🤖 Model ID (default: doubao-seedream-4-5-251128, supports multi-image fusion)"),
+    model: z.string().optional().describe(`🤖 Model ID (default: doubao-seedream-4-5-251128)
+Known models:
+• doubao-seedream-5-0-260128 - Latest (2026-01), web search, deep reasoning
+• doubao-seedream-4-5-251128 - Best for multi-image fusion (2-14 images)
+• doubao-seedream-4-0-250428 - 4K ultra HD, strong subject consistency
+• doubao-seededit-3-0-i2i - Image-to-image, adaptive size
+You can use any valid Doubao model ID, including future releases.`),
 
     // ========== 图片输入 (二选一) ==========
     imageUrl: z.string().optional().describe("🖼️ Single reference image URL or base64 data URI (format: data:image/png;base64,...)"),

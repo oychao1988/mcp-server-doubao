@@ -1,7 +1,7 @@
 {
   "name": "@tonychaos/mcp-server-doubao",
-  "version": "1.2.0",
-  "description": "MCP server for Doubao (豆包) AI models - Comprehensive Image and Video generation with 4 image models and 2 video models",
+  "version": "1.3.0",
+  "description": "MCP server for Doubao (豆包) AI models - Comprehensive Image and Video generation with Seedream 5.0, supporting any valid Doubao model ID",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -26,10 +26,15 @@
     "ai",
     "seedream",
     "seedance",
+    "seedream-5",
+    "seedream-4.5",
+    "seedance-2",
     "4k",
     "text-to-image",
     "text-to-video",
     "multi-image-fusion",
+    "web-search",
+    "deep-reasoning",
     "stable-diffusion-alternative"
   ],
   "author": "tonychaos",

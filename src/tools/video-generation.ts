@@ -3,20 +3,7 @@
  */
 
 import { VideoAPI } from "../api/index.js";
-import { VIDEO_MODELS } from "../types/index.js";
 import { z } from "zod";
-
-/**
- * 获取模型枚举值
- */
-const MODEL_ENUM = z.enum([
-  VIDEO_MODELS.SEEDANCE_1_5_PRO,
-  VIDEO_MODELS.SEEDANCE_1_0_PRO,
-  VIDEO_MODELS.SEEDANCE_1_0_PRO_FAST,
-  VIDEO_MODELS.SEEDANCE_1_0_LITE_I2V,
-  VIDEO_MODELS.SEEDANCE_1_0_LITE_T2V,
-  "custom", // 允许自定义模型ID
-]);
 
 /**
  * 视频生成工具
@@ -34,7 +21,14 @@ export const generateVideoTool = {
     referenceImages: z.array(z.string()).max(4).optional().describe("[Reference Images] Array of 1-4 reference image URLs for Seedance 1.0 Lite I2V model"),
 
     // 模型选择
-    model: z.string().optional().describe(`Model ID. Options: ${Object.values(VIDEO_MODELS).join(", ")}. Default: ${VIDEO_MODELS.SEEDANCE_1_5_PRO}`),
+    model: z.string().optional().describe(`🤖 Model ID (default: doubao-seedance-1-5-pro-251215)
+Known models:
+• doubao-seedance-1-5-pro-251215 - Latest (2025-09), audio-video sync, high quality
+• doubao-seedance-1-0-pro-250528 - Pro model, 1080p
+• doubao-seedance-1-0-pro-fast - Faster generation
+• doubao-seedance-1-0-lite-i2v-250428 - Image-to-video, supports 1-4 reference images
+• doubao-seedance-1-0-lite-t2v - Text-to-video
+You can use any valid Doubao model ID, including future releases.`),
 
     // 视频输出参数
     resolution: z.enum(["480p", "720p", "1080p"]).optional().describe("Video resolution. Default: 720p (Seedance 1.5 pro/lite), 1080p (Seedance 1.0 pro/pro-fast)"),

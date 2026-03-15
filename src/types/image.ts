@@ -3,9 +3,10 @@
  */
 
 /**
- * 支持的图片生成模型
+ * 已知的图片生成模型（仅供参考，可以使用任意有效的模型ID）
  */
 export const IMAGE_MODELS = {
+  SEEDREAM_5_0: "doubao-seedream-5-0-260128",
   SEEDREAM_4_5: "doubao-seedream-4-5-251128",
   SEEDREAM_4_0: "doubao-seedream-4-0-250428",
   SEEDREAM_3_0_T2I: "doubao-seedream-3-0-t2i",
